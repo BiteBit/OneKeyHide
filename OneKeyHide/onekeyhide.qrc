@@ -1,0 +1,27 @@
+<RCC>
+    <qresource prefix="/OneKeyHide">
+        <file>Resources/bg-black-rect.png</file>
+        <file>Resources/bg-line.jpg</file>
+        <file>Resources/bg-line-round.jpg</file>
+        <file>Resources/bg-rect.jpg</file>
+        <file>Resources/viewbg.png</file>
+        <file>Resources/border_shadow/shadow_bottom.png</file>
+        <file>Resources/border_shadow/shadow_corner1.png</file>
+        <file>Resources/border_shadow/shadow_corner2.png</file>
+        <file>Resources/border_shadow/shadow_corner3.png</file>
+        <file>Resources/border_shadow/shadow_corner4.png</file>
+        <file>Resources/border_shadow/shadow_left.png</file>
+        <file>Resources/border_shadow/shadow_right.png</file>
+        <file>Resources/border_shadow/shadow_top.png</file>
+        <file>Resources/button/btn_bg_mid1.png</file>
+        <file>Resources/button/btn_bg_mid2.png</file>
+        <file>Resources/button/btn_bg1.png</file>
+        <file>Resources/button/btn_bg2.png</file>
+        <file>Resources/menu/close.png</file>
+        <file>Resources/menu/max.png</file>
+        <file>Resources/menu/menu.png</file>
+        <file>Resources/menu/min.png</file>
+        <file>Resources/menu/user.png</file>
+        <file>Resources/default_zh.qss</file>
+    </qresource>
+</RCC>

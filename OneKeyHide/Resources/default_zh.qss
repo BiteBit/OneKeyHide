@@ -1,0 +1,121 @@
+QLineEdit{
+border-radius:2px;
+border:1px solid #e1e0e0;
+background-color: rgb(255, 255, 255);
+}
+QLineEdit:hover{
+border-radius: 3px;
+border-width:2px;
+border-color:rgb(50, 180, 250);
+}
+
+QComboBox{
+border-radius:2px;
+border:1px solid gray;
+}
+QComboBox:hover{
+border-radius: 3px;
+border-width:2px;
+border-color:rgb(50, 180, 250);
+}
+QComboBox::down-arrow{
+image:url(:/OneKeyHide/Resources/OneKeyHide/img/DragDownBig.png);
+}
+QComboBox::drop-down{
+width:16px;
+border-left:1px solid gray;
+background:transparent;
+}
+QComboBox::drop-down:hover{
+border-left:1px solid lightgray;
+background:rgb(220, 240, 250);
+}
+
+QTabBar::tab {color: rgb(0,0,0);
+background-color: rgb(255, 255, 255);
+border:none;
+border-bottom-color: rgb(68,66,64);
+border-top-right-radius: 2px;
+border-top-left-radius: 2px;
+max-height: 21px;
+min-width: 60px;
+padding: 2px; }
+
+#tabWidget::tab-bar { alignment: left; }
+#tabWidget::tab:!selected { margin-top: 5px;color: rgb(0, 0, 0);}
+#tabWidget::tab:selected { color: rgb(255,255,255); background-color:#43b1ee;}
+#tabWidget{border:none;}
+
+
+/*--------------------------header----------------------------------*/
+#widgetHeader, #frameTitle{
+background-image: url(:/OneKeyHide/Resources/bg-black-rect.png);
+}
+
+#labelTitle {
+	color: rgb(255, 255, 255);
+}
+
+/*----------------------------tool buttons------------------------------------*/
+QPushButton#pushButtonMenu{
+	border-style:flat;
+	background-image: url(:/OneKeyHide/Resources/menu/menu.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+QPushButton#pushButtonMenu:hover:pressed{background-color:#3694da;border-style:flat;}
+QPushButton#pushButtonMenu:hover:!pressed{background-color:rgb(85, 200, 255);border-style:flat;}
+
+QPushButton#pushButtonMin{
+	border-style:flat;
+	background-image: url(:/OneKeyHide/Resources/menu/min.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+QPushButton#pushButtonMin:hover:pressed{background-color:red;border-style:flat;}
+QPushButton#pushButtonMin:hover:!pressed{background-color:red;border-style:flat;}
+
+QPushButton#pushButtonMax{
+	border-style:flat;
+	background-image: url(:/OneKeyHide/Resources/menu/max.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+QPushButton#pushButtonMax:hover:pressed{background-color:red;border-style:flat;}
+QPushButton#pushButtonMax:hover:!pressed{background-color:red;border-style:flat;}
+
+QPushButton#pushButtonClose{
+	border-style:flat;
+	background-image: url(:/OneKeyHide/Resources/menu/close.png);
+	background-repeat:no-repeat;
+	background-position:center;
+}
+QPushButton#pushButtonClose:hover:pressed{background-color:red;border-style:flat;}
+QPushButton#pushButtonClose:hover:!pressed{background-color:red;border-style:flat;}
+
+
+/*-------------------------------------------------------------------*/
+QPushButton#pushButtonPauseJob
+{
+	border-style:flat;
+	background-image: url(:/OneKeyHide/Resources/OneKeyHide/img/toolbar_btns/pause_dis.png);
+}
+
+QPushButton#pushButtonPauseJob:hover:pressed
+{
+	background-color:#3694da;
+	border-style:flat;
+}
+
+QPushButton#pushButtonPauseJob:hover:!pressed
+{
+	background-color:rgb(85, 200, 255);
+	border-style:flat;
+}
+
+QPushButton#pushButtonPauseJob:disabled
+{
+	background-image: url(:/OneKeyHide/Resources/OneKeyHide/img/toolbar_btns/pause_dis.png);
+}
+
+

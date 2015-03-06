@@ -1,0 +1,7 @@
+*.sdf
+*.suo
+*.user
+
+Obj/
+Win32/
+OneKeyHide/GeneratedFiles

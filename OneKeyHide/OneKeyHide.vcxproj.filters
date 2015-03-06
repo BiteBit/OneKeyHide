@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;cxx;c;def</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Generated Files">
+      <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
+      <Extensions>moc;h;cpp</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Debug">
+      <UniqueIdentifier>{cb552a23-9f27-47b7-9811-3e082144f343}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Generated Files\Release">
+      <UniqueIdentifier>{24f15d7f-e33e-42e2-a5f0-0dc477dcbe6d}</UniqueIdentifier>
+      <Extensions>cpp;moc</Extensions>
+      <SourceControlFiles>False</SourceControlFiles>
+    </Filter>
+    <Filter Include="Source Files\ui">
+      <UniqueIdentifier>{4f5503fc-1319-4b02-809d-15d08f2a3040}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\core">
+      <UniqueIdentifier>{4b10f1a6-c431-4da4-ad8f-f1056a3ed081}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\base-ui">
+      <UniqueIdentifier>{dda30497-1eaa-46d8-9661-03ebdf4fbc1d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>true</ParseFiles>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="base-ui\frameless_dialog.cpp">
+      <Filter>Source Files\base-ui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_frameless_dialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_frameless_dialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="core\hider.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_hider.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_hider.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="core\windowinfo.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\onekeyhide.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_onekeyhide.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_onekeyhide.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_newdialog.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_newdialog.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\newdialog.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_onekeyhide.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <CustomBuild Include="base-ui\frameless_dialog.h">
+      <Filter>Source Files\base-ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="base-ui\frameless_dialog.ui">
+      <Filter>Source Files\base-ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="GeneratedFiles\ui_frameless_dialog.h">
+      <Filter>Generated Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="base-ui\supportframess.h">
+      <Filter>Source Files\base-ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="core\hider.h">
+      <Filter>Source Files\core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\onekeyhide.h">
+      <Filter>Source Files\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\onekeyhide.ui">
+      <Filter>Source Files\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\newdialog.ui">
+      <Filter>Source Files\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\newdialog.h">
+      <Filter>Source Files\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="onekeyhide.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\default_zh.qss">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\windowinfo.h">
+      <Filter>Source Files\core</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_onekeyhide.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_newdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Resources\bg-black-rect.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\bg-line.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\bg-line-round.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\bg-rect.jpg">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\viewbg.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_bottom.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_corner1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_corner2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_corner3.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_corner4.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_left.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_right.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\border_shadow\shadow_top.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\button\btn_bg_mid1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\button\btn_bg_mid2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\button\btn_bg1.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\button\btn_bg2.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\menu\close.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\menu\max.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\menu\menu.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\menu\min.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="Resources\menu\user.png">
+      <Filter>Resource Files</Filter>
+    </Image>
+  </ItemGroup>
+</Project>
