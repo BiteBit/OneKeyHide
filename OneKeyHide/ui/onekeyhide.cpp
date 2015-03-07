@@ -3,42 +3,89 @@
 #include <QTableWidgetItem>
 #include <QPixmap>
 #include <QLabel>
+#include <QHBoxLayout>
 
 const int kShadowWidth = 5;
 
 OneKeyHide::OneKeyHide(QWidget *parent)
-	: SupportFrameless<QDialog>(parent) {
+	: SupportFrameless<QDialog>(parent, 5, true) {
 	ui.setupUi(this);
 	setAttribute(Qt::WA_TranslucentBackground);
-
-	//ui.tableWidget->setColumnCount(6);
-	//ui.tableWidget->setColumnWidth(0, 300);
-	//ui.tableWidget->setColumnWidth(1, 60);
-	//ui.tableWidget->setColumnWidth(2, 100);
-	//ui.tableWidget->setColumnWidth(3, 100);
-	//ui.tableWidget->setColumnWidth(4, 100);
-	//ui.tableWidget->setColumnWidth(5, 100);
-
+	
+	InitTable(ui.tableWidgetHiding);
+	
 	hider_ = new Hider(this);
+	new_dialog_ = new NewDialog(hider_);
+
+	SetWidgetToWidget(ui.pageCreate, new_dialog_);
 }
 
 OneKeyHide::~OneKeyHide() {
 }
 
-void OneKeyHide::on_pushButtonNewHide_clicked() {
-	new_dialog_.SetHideMode(true);
-	new_dialog_.exec();
+void OneKeyHide::SetWidgetToWidget(QWidget* parent, QWidget* child) {
+	auto* layout = new QHBoxLayout;
+	layout->setMargin(0);
+	layout->addWidget(child);
+	parent->setLayout(layout);
 }
 
-void OneKeyHide::on_pushButtonNewSwitch_clicked() {
-	new_dialog_.SetHideMode(false);
-	new_dialog_.exec();
+void OneKeyHide::InitTable(QTableWidget* table) {
+	table->setColumnWidth(0, 300);
+	table->setColumnWidth(1, 60);
+	table->setColumnWidth(2, 100);
+	table->setColumnWidth(3, 100);
+	table->setColumnWidth(4, 100);
+}
+
+void OneKeyHide::AddRow(QTableWidget* table, bool is_hide, const Rule& rule) {
+	for (const auto& it : is_hide ? rule.visible_list : rule.switch_list) {
+		auto index = table->rowCount();
+		table->setRowCount(index + 1);
+
+		auto name_item = new QTableWidgetItem;
+		name_item->setData(Qt::UserRole + 1, QVariant((WId)it.hwnd));
+		name_item->setText(it.name);
+
+		auto visible_item = new QTableWidgetItem;
+		visible_item->setText(it.visible ? QString::fromLocal8Bit("显示") : QString::fromLocal8Bit("隐藏"));
+
+		auto min_hotkey_item = new QTableWidgetItem;
+		min_hotkey_item->setText(it.min_hotkey);
+
+		auto max_hotkey_item = new QTableWidgetItem;
+		max_hotkey_item->setText(it.max_hotkey);
+
+		auto show_hide_hotkey_item = new QTableWidgetItem;
+		show_hide_hotkey_item->setText(it.show_hide_hotkey);
+
+		auto voice_follow_vision = new QTableWidgetItem;
+		voice_follow_vision->setText(it.voice_follow_vision ? QString::fromLocal8Bit("是") : QString::fromLocal8Bit("否"));
+
+		table->setItem(index, 0, name_item);
+		table->setItem(index, 1, visible_item);
+		table->setItem(index, 2, max_hotkey_item);
+		table->setItem(index, 3, min_hotkey_item);
+		table->setItem(index, 4, show_hide_hotkey_item);
+		table->setItem(index, 5, voice_follow_vision);
+	}
+}
+
+void OneKeyHide::on_pushButtonHome_clicked() {
+	ui.stackedWidget->setCurrentWidget(ui.pageHome);
+}
+
+void OneKeyHide::on_pushButtonNewHide_clicked() {
+	ui.stackedWidget->setCurrentWidget(ui.pageCreate);
+	new_dialog_->Exec();
 }
 
 void OneKeyHide::on_pushButtonSettings_clicked() {
+	ui.stackedWidget->setCurrentWidget(ui.pageSettings);
 }
 
 void OneKeyHide::on_pushButtonHelp_clicked() {
+	ui.stackedWidget->setCurrentWidget(ui.pageHelp);
 }
 
 void OneKeyHide::on_pushButtonClose_clicked() {
@@ -61,36 +108,31 @@ void OneKeyHide::OnEnumStart() {
 
 }
 
-void OneKeyHide::OnEnumFinish(const QHash<HWND, Window>& infos) {
+void OneKeyHide::OnEnumFinish(const WindowHash& infos) {
+	if (new_dialog_)
+		new_dialog_->ShowWin();
 	UpdateList(infos);
 }
 
-void OneKeyHide::UpdateList(const QHash<HWND, Window>& windows) {
-	for (const auto& it : windows) {
-		//auto index = ui.tableWidget->rowCount();
-		//ui.tableWidget->setRowCount(index + 1);
+void OneKeyHide::OnNewRuleAdd(const Rule&  rule) {
+	AddRow(ui.tableWidgetHiding, true, rule);
+}
 
-		//auto name_item = new QTableWidgetItem;
-		//name_item->setText(it.name);
-		//
-		//auto visible_item = new QTableWidgetItem;
-		//visible_item->setText(it.visible ? tr("visible") : tr("invisible"));
+void OneKeyHide::OnNewRuleUpdate(const Rule& rule) {
+}
 
-		//auto min_hotkey_item = new QTableWidgetItem;
-		//min_hotkey_item->setText(it.min_hotkey);
-
-		//auto max_hotkey_item = new QTableWidgetItem;
-		//max_hotkey_item->setText(it.max_hotkey);
-
-		//auto show_hide_hotkey_item = new QTableWidgetItem;
-		//show_hide_hotkey_item->setText(it.show_hide_hotkey);
-
-		//ui.tableWidget->setItem(index, 0, name_item);
-		//ui.tableWidget->setItem(index, 1, visible_item);
-		//ui.tableWidget->setItem(index, 2, min_hotkey_item);
-		//ui.tableWidget->setItem(index, 4, max_hotkey_item);
-		//ui.tableWidget->setItem(index, 5, show_hide_hotkey_item);
+void OneKeyHide::OnWindowVisibleChanged(HWND hwnd, bool visible) {
+	for (int i = 0; i < ui.tableWidgetHiding->rowCount(); ++i) {
+		auto data = ui.tableWidgetHiding->item(i, 0)->data(Qt::UserRole + 1);
+		HWND current_hwnd = (HWND)(WId)(data.toInt());
+		if (current_hwnd == hwnd) {
+			ui.tableWidgetHiding->item(i, 1)->setText(visible ? QString::fromLocal8Bit("显示") : QString::fromLocal8Bit("隐藏"));
+			break;
+		}
 	}
+}
+
+void OneKeyHide::UpdateList(const WindowHash& windows) {
 }
 
 bool OneKeyHide::nativeEvent(const QByteArray& eventType, void* message, long* result) {
@@ -99,30 +141,10 @@ bool OneKeyHide::nativeEvent(const QByteArray& eventType, void* message, long* r
 	case WM_NCHITTEST: {
 		int xPos = GET_X_LPARAM(msg->lParam) - this->frameGeometry().x();
 		int yPos = GET_Y_LPARAM(msg->lParam) - this->frameGeometry().y();
-
-		if (QRect(0, 0, this->width() - 150, 15).contains(xPos, yPos)        //标题栏不包括最大化最小化按钮，上边
-			|| QRect(ui.pushButtonNewHide->width() * 4, 30, this->width(), 60).contains(xPos, yPos)    //按钮栏右边 logo等空白
-			|| QRect(0, 0, 10, this->height()).contains(xPos, yPos)         //左边
-			|| QRect(0, this->height() - kShadowWidth, this->width(), this->height()).contains(xPos, yPos)    //下边
-			|| QRect(this->width() - kShadowWidth, 0, this->width(), this->height()).contains(xPos, yPos))    //右边
+		if (QRect(0, 0, this->width() - 150, 15).contains(xPos, yPos) || QRect(ui.pushButtonNewHide->width() * 4, 30, this->width(), 60).contains(xPos, yPos))
 			*result = HTCAPTION;
-
-		if (xPos > shadow_width_ - 2 && xPos < shadow_width_ + 2)
-			*result = HTLEFT;
-		else if (xPos >(this->width() - shadow_width_ - 2) && xPos < (this->width()))
-			*result = HTRIGHT;
-		else if (yPos > shadow_width_ - 2 && yPos < shadow_width_ + 2)
-			*result = HTTOP;
-		else if (yPos >(this->height() - shadow_width_ - 2) && yPos < (this->height() - shadow_width_ + 2))
-			*result = HTBOTTOM;
-		else if (xPos > shadow_width_ - 2 && xPos < shadow_width_ + 2 && yPos > 18 && yPos < shadow_width_ + 2)
-			*result = HTTOPLEFT;
-		else if (xPos >(this->width() - shadow_width_ - 2) && xPos < (this->width() - shadow_width_ + 2) && yPos > shadow_width_ - 2 && yPos < shadow_width_ + 2)
-			*result = HTTOPRIGHT;
-		else if (xPos > shadow_width_ - 2 && xPos < shadow_width_ + 2 && yPos >(this->height() - shadow_width_ - 2) && yPos < (this->height() - shadow_width_ - 2))
-			*result = HTBOTTOMLEFT;
-		else if (xPos >(this->width() - shadow_width_ - 2) && xPos < (this->width() - shadow_width_ + 2) && yPos >(this->height() - shadow_width_ - 2) && yPos < (this->height() - shadow_width_ + 2))
-			*result = HTBOTTOMRIGHT;
+		else
+			return SupportFrameless::nativeEvent(eventType, message, result);
 	}
 		break;
 	}

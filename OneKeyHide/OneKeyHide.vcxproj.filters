@@ -44,6 +44,12 @@
       <Extensions>ui</Extensions>
       <ParseFiles>true</ParseFiles>
     </Filter>
+    <Filter Include="Source Files\3rd">
+      <UniqueIdentifier>{de6064b7-5c67-4f82-a9af-7a4ce0f5e11f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\3rd\qxtglobalshortcut">
+      <UniqueIdentifier>{13d06381-4ad5-49a3-99aa-193d38fc49c2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base-ui\frameless_dialog.cpp">
@@ -63,9 +69,6 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_hider.cpp">
       <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="core\windowinfo.cpp">
-      <Filter>Source Files\core</Filter>
     </ClCompile>
     <ClCompile Include="ui\onekeyhide.cpp">
       <Filter>Source Files\ui</Filter>
@@ -90,6 +93,18 @@
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_onekeyhide.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="3rd\qxtglobalshortcut\qxtglobalshortcut.cpp">
+      <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_qxtglobalshortcut.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_qxtglobalshortcut.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="3rd\qxtglobalshortcut\qxtglobalshortcut_win.cpp">
+      <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -123,10 +138,16 @@
     <CustomBuild Include="onekeyhide.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="3rd\qxtglobalshortcut\qxtglobalshortcut.h">
+      <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\default_zh.qss">
       <Filter>Resource Files</Filter>
+    </None>
+    <None Include="3rd\qxtglobalshortcut\qxtglobalshortcut.pri">
+      <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -137,6 +158,15 @@
       <Filter>Generated Files</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_newdialog.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3rd\qxtglobalshortcut\qxtglobal.h">
+      <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
+    </ClInclude>
+    <ClInclude Include="3rd\qxtglobalshortcut\qxtglobalshortcut_p.h">
+      <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -207,5 +237,9 @@
     <Image Include="Resources\menu\user.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Resources\logo.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Resource.rc" />
   </ItemGroup>
 </Project>

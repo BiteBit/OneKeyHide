@@ -1,6 +1,7 @@
 *.sdf
 *.suo
 *.user
+*.opensdf
 
 Obj/
 Win32/

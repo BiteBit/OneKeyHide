@@ -3,7 +3,18 @@
 #include <QDebug>
 #include <QTimer>
 
-QHash<HWND, Window> Hider::windows_info_;
+#include <QWidget>
+
+WindowHash Hider::windows_info_;
+
+QStringList blacklist = 
+	QStringList() << "" << "Default IME" << "MSCTFIME UI" << "MS_WebcheckMonitor" << "DDE Server Window" << "MediaContextNotificationWindow"
+	<< QString::fromLocal8Bit("电池指示器") << "Network Flyout" << "ms_sqlce_se_notify_wndproc" << "CiceroUIWndFrame"
+	<< "TSVNCacheWindow" << "CiceroUIWndFrame" << QString::fromLocal8Bit("TaskEng - 任务计划程序引擎进程") << "VATreeParent" << "GDI+ Window"
+	<< "SystemResourceNotifyWindow" << "Windows Push Notifications Platform" << "BluetoothNotificationAreaIconWindowClass" << "Task Host Window" << "DWM Notification Window"
+	<< "Program Manager" << "VAStatMsgWnd" << QString::fromLocal8Bit("任务切换");
+
+QStringList whitelist = QStringList() << "";
 
 Hider::Hider(Delegate* delegate)
 	: QObject(NULL),
@@ -18,12 +29,19 @@ void Hider::StartEnumWindows() {
 	delegate_->OnEnumStart();
 	::EnumWindows((WNDENUMPROC)MyEnumWindowsProc, 0);
 	delegate_->OnEnumFinish(windows_info_);
+}
 
-	//QTimer::singleShot(1000, this, SLOT(StartEnumWindows()));
+void Hider::SlotShortCutActivated() {
+	auto sender = (QxtGlobalShortcut*)this->sender();
+	auto it = actions_.find(sender);
+	if (it != actions_.end()) {
+		OneKeyShowHide(it->visible_list);
+		OneKeySwitch(it->switch_list);
+	}
 }
 
 bool CALLBACK Hider::MyEnumWindowsProc(HWND hwnd, LPARAM lParam) {
-	//if (IsWindow(hwnd)) {
+	if (IsWindow(hwnd)) {
 		auto it = windows_info_.find(hwnd);
 		if (it == windows_info_.end()) {
 			Window window;
@@ -31,22 +49,56 @@ bool CALLBACK Hider::MyEnumWindowsProc(HWND hwnd, LPARAM lParam) {
 			memset(lpWinTitle, 0, sizeof(lpWinTitle));
 			::GetWindowText(hwnd, lpWinTitle, sizeof(lpWinTitle) - 1);
 			window.name = QString::fromStdWString(lpWinTitle).trimmed();
-			if (window.name.isEmpty())
+			window.hwnd = hwnd;
+			if (blacklist.contains(window.name))
 				return true;
-			//if (window.name.contains("Chrome"))
-			//	ShowWindow(hwnd, SW_SHOW);
-			//	//ShowWindow(hwnd, SW_HIDE);
+			
+			qDebug() << "--------------------------------------------";
+			qDebug() << hwnd << window.name;
 
-			qDebug() << window.name;
+			if (window.name.contains("Chrome")) {
+				WId id = WId(hwnd);
+				QWidget* widget = QWidget::find((WId)hwnd);
+				if (widget)
+					widget->hide();
+			}
+
 			windows_info_.insert(hwnd, window);
 		} else {
 		}
-	//}
+	}
 	return true;
 }
 
-void Hider::OneKeyShowHide() {
+Window Hider::FindByHwnd(HWND hwnd) {
+	auto it = windows_info_.find(hwnd);
+	if (it != windows_info_.end())
+		return it.value();
+	
+	return Window();
+}
 
+void Hider::AddRule(const QKeySequence& key_seq, const Rule& rule) {
+	//rules_.insert(key_seq, rule);
+	auto short_cut = new QxtGlobalShortcut(key_seq);
+	connect(short_cut, SIGNAL(activated()), this, SLOT(SlotShortCutActivated()));
+	actions_.insert(short_cut, rule);
+	delegate_->OnNewRuleAdd(rule);
+}
+
+void Hider::OneKeyShowHide(WindowList& list) {
+	for (auto& it : list) {
+		ShowWindow(it.hwnd, it.visible ? SW_HIDE : SW_SHOW);
+		delegate_->OnWindowVisibleChanged(it.hwnd, !it.visible);
+		it.visible = !it.visible;
+	}
+}
+
+void Hider::OneKeySwitch(WindowList& list) {
+	for (auto& it : list) {
+		ShowWindow(it.hwnd, SW_SHOW);
+		it.visible = true;
+	}
 }
 
 void Hider::SetShowHideHotkey(HWND hwnd, const QString& key) {
@@ -68,4 +120,10 @@ void Hider::SetMinHotkey(HWND hwnd, const QString& key) {
 	if (it != windows_info_.end()) {
 		it->show_hide_hotkey = key;
 	}
+}
+
+void Hider::SetVisible(HWND hwnd, bool visible) {
+	auto it = windows_info_.find(hwnd);
+	if (it != windows_info_.end())
+		it->visible = visible;
 }

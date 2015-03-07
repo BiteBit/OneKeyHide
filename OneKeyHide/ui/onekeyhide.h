@@ -17,32 +17,35 @@ public:
 	~OneKeyHide();
 
 	virtual void OnEnumStart() override;
-
-	virtual void OnEnumFinish(const QHash<HWND, Window>&) override;
+	virtual void OnEnumFinish(const WindowHash&) override;
+	virtual void OnNewRuleAdd(const Rule&  rule) override;
+	virtual void OnNewRuleUpdate(const Rule& rule) override;
+	virtual void OnWindowVisibleChanged(HWND hwnd, bool visible) override;
 public slots:
+	void on_pushButtonHome_clicked();
 	void on_pushButtonNewHide_clicked();
-
-	void on_pushButtonNewSwitch_clicked();
-
 	void on_pushButtonSettings_clicked();
-
 	void on_pushButtonHelp_clicked();
 
 	void on_pushButtonClose_clicked();
-
 	void on_pushButtonMax_clicked();
-
 	void on_pushButtonMin_clicked();
 private:
-	void UpdateList(const QHash<HWND, Window>&);
+	void UpdateList(const WindowHash&);
+
+	void SetWidgetToWidget(QWidget* parent, QWidget* child);
 
 	bool nativeEvent(const QByteArray &eventType, void *message, long *result);
+
+	void InitTable(QTableWidget* table);
+
+	void AddRow(QTableWidget* table, bool is_hide, const Rule& list);
 private:
 	Ui::OneKeyHideClass ui;
 
 	Hider* hider_;
 
-	NewDialog new_dialog_;
+	NewDialog* new_dialog_;
 };
 
 #endif // ONEKEYHIDE_H

@@ -6,6 +6,8 @@
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
+	app.setWindowIcon(QIcon(":/OneKeyHide/Resources/logo.ico"));
+
 	QFile file(":/OneKeyHide/Resources/default_zh.qss");
 	if (file.open(QIODevice::ReadOnly)) {
 		OneKeyHide w;

@@ -23,5 +23,15 @@
         <file>Resources/menu/min.png</file>
         <file>Resources/menu/user.png</file>
         <file>Resources/default_zh.qss</file>
+        <file>Resources/arrow.png</file>
+        <file>Resources/logo.ico</file>
+        <file>Resources/logo.png</file>
+        <file>Resources/logo20x20.png</file>
+        <file>Resources/tool_buttons/heart.png</file>
+        <file>Resources/tool_buttons/home.png</file>
+        <file>Resources/tool_buttons/settings.png</file>
+        <file>Resources/tool_buttons/skull.png</file>
+        <file>Resources/tool_buttons/bg.png</file>
+        <file>Resources/tool_buttons/bg-press.png</file>
     </qresource>
 </RCC>
