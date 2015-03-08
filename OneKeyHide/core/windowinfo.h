@@ -21,8 +21,6 @@ struct Window {
 	bool setted;
 	QString title;
 	QString show_hide_hotkey;
-	QString max_hotkey;
-	QString min_hotkey;
 	QString exe_path;
 };
 typedef QList<Window> WindowList;

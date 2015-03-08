@@ -425,22 +425,12 @@
          </column>
          <column>
           <property name="text">
-           <string>显示状态</string>
+           <string>状态</string>
           </property>
          </column>
          <column>
           <property name="text">
-           <string>最大化</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>最小化</string>
-          </property>
-         </column>
-         <column>
-          <property name="text">
-           <string>隐藏</string>
+           <string>显隐热键</string>
           </property>
          </column>
          <column>
@@ -450,7 +440,12 @@
          </column>
          <column>
           <property name="text">
-           <string> 切换到窗口</string>
+           <string>切换窗口</string>
+          </property>
+         </column>
+         <column>
+          <property name="text">
+           <string>程序路径</string>
           </property>
          </column>
         </widget>

@@ -43,12 +43,12 @@ void OneKeyHide::SetWidgetToWidget(QWidget* parent, QWidget* child) {
 }
 
 void OneKeyHide::InitTable(QTableWidget* table) {
-	table->setColumnWidth(0, 300);
-	table->setColumnWidth(1, 60);
+	table->setColumnWidth(0, 200);
+	table->setColumnWidth(1, 40);
 	table->setColumnWidth(2, 100);
-	table->setColumnWidth(3, 100);
-	table->setColumnWidth(4, 100);
-	table->setColumnWidth(5, 60);
+	table->setColumnWidth(3, 60);
+	table->setColumnWidth(4, 200);
+	table->setColumnWidth(5, 280);
 }
 
 void OneKeyHide::AddRow(QTableWidget* table, bool is_hide, const Rule& rule) {
@@ -59,15 +59,10 @@ void OneKeyHide::AddRow(QTableWidget* table, bool is_hide, const Rule& rule) {
 		auto title_item = new QTableWidgetItem;
 		title_item->setData(Qt::UserRole + 1, QVariant((WId)it.hwnd));
 		title_item->setText(it.title);
+		title_item->setToolTip(it.title);
 
 		auto visible_item = new QTableWidgetItem;
 		visible_item->setText(it.visible ? G2U("ÏÔÊ¾") : G2U("Òþ²Ø"));
-
-		auto min_hotkey_item = new QTableWidgetItem;
-		min_hotkey_item->setText(it.min_hotkey);
-
-		auto max_hotkey_item = new QTableWidgetItem;
-		max_hotkey_item->setText(it.max_hotkey);
 
 		auto show_hide_hotkey_item = new QTableWidgetItem;
 		show_hide_hotkey_item->setText(it.show_hide_hotkey);
@@ -75,14 +70,25 @@ void OneKeyHide::AddRow(QTableWidget* table, bool is_hide, const Rule& rule) {
 		auto voice_follow_vision = new QTableWidgetItem;
 		voice_follow_vision->setText(it.voice_follow_vision ? G2U("ÊÇ") : G2U("·ñ"));
 
+		auto switch_to_item = new QTableWidgetItem;
+		QString switch_window_list_str;
+		for (const auto& iter: rule.switch_list)
+			switch_window_list_str += iter.title;
+		switch_to_item->setText(switch_window_list_str);
+		switch_to_item->setToolTip(switch_window_list_str);
+
+		auto path_item = new QTableWidgetItem;
+		path_item->setText(it.exe_path);
+		path_item->setToolTip(it.exe_path);
+		
 		QFileIconProvider icon_provider;
 		title_item->setIcon(icon_provider.icon(QFileInfo(it.exe_path)));
 		table->setItem(index, 0, title_item);
 		table->setItem(index, 1, visible_item);
-		table->setItem(index, 2, max_hotkey_item);
-		table->setItem(index, 3, min_hotkey_item);
-		table->setItem(index, 4, show_hide_hotkey_item);
-		table->setItem(index, 5, voice_follow_vision);
+		table->setItem(index, 2, show_hide_hotkey_item);
+		table->setItem(index, 3, voice_follow_vision);
+		table->setItem(index, 4, switch_to_item);
+		table->setItem(index, 5, path_item);
 	}
 }
 

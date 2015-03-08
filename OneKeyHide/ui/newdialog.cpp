@@ -16,8 +16,8 @@ NewDialog::NewDialog(Hider* hider, QWidget *parent)
 
 	connect(ui.checkBoxSwitchWhenHide, SIGNAL(stateChanged(int)), this, SLOT(SlotSwitchCheckChanged(int)));
 	connect(ui.keySequenceEditVisible, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
-	connect(ui.keySequenceEditMax, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
-	connect(ui.keySequenceEditMin, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
+	//connect(ui.keySequenceEditMax, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
+	//connect(ui.keySequenceEditMin, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
 	ShowSwitchWidget(false);
 }
 
@@ -46,8 +46,8 @@ void NewDialog::on_pushButtonOk_clicked() {
 void NewDialog::Reset() {
 	ui.checkBoxOpenVoiceWhenShow->setChecked(true);
 	ui.checkBoxSwitchWhenHide->setChecked(false);
-	ui.keySequenceEditMax->clear();
-	ui.keySequenceEditMin->clear();
+	//ui.keySequenceEditMax->clear();
+	//ui.keySequenceEditMin->clear();
 	ui.keySequenceEditVisible->clear();
 	ui.tableWidgetOption->clearContents();
 	ui.tableWidgetSwitching->clearContents();
@@ -83,8 +83,6 @@ WindowList NewDialog::CheckedWindow(const QTableWidget* list) {
 
 		Window win = hider_->FindByHwnd(hwnd);
 		win.show_hide_hotkey = visible_key_seq_.toString(QKeySequence::PortableText);
-		win.max_hotkey = max_key_seq_.toString(QKeySequence::PortableText);
-		win.min_hotkey = min_key_seq_.toString(QKeySequence::PortableText);
 		win.voice_follow_vision = ui.checkBoxOpenVoiceWhenShow->isChecked();
 		if (win.hwnd)
 			infos.push_back(win);
@@ -118,14 +116,12 @@ void NewDialog::SlotSwitchCheckChanged(int state) {
 }
 
 void NewDialog::SlotKeySeqChanged(const QKeySequence& key_seq) {
-	if (sender() == ui.keySequenceEditMax)
-		max_key_seq_ = key_seq;
-	else if (sender() == ui.keySequenceEditMin)
-		min_key_seq_ = key_seq;
-	else if (sender() == ui.keySequenceEditVisible)
-		visible_key_seq_ = key_seq;
-	else
-		assert(0);
+	//if (sender() == ui.keySequenceEditMax)
+	//	max_key_seq_ = key_seq;
+	//else if (sender() == ui.keySequenceEditMin)
+	//	min_key_seq_ = key_seq;
+	//else if (sender() == ui.keySequenceEditVisible)
+	visible_key_seq_ = key_seq;
 }
 
 void NewDialog::ShowWin(QTableWidget* table_widget) {

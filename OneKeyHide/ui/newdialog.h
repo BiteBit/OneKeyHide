@@ -43,8 +43,8 @@ private:
 
 	Hider* hider_;
 
-	QKeySequence max_key_seq_;
-	QKeySequence min_key_seq_;
+	//QKeySequence max_key_seq_;
+	//QKeySequence min_key_seq_;
 	QKeySequence visible_key_seq_;
 };
 
