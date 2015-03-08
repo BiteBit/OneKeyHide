@@ -10,6 +10,13 @@
     <height>545</height>
    </rect>
   </property>
+  <property name="font">
+   <font>
+    <family>微软雅黑</family>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
   <property name="windowTitle">
    <string>OneKeyHide</string>
   </property>
@@ -251,6 +258,12 @@
            <property name="text">
             <string/>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -272,6 +285,12 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -295,6 +314,12 @@
            <property name="text">
             <string/>
            </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
+           </property>
           </widget>
          </item>
          <item>
@@ -316,6 +341,12 @@
            </property>
            <property name="text">
             <string/>
+           </property>
+           <property name="checkable">
+            <bool>true</bool>
+           </property>
+           <property name="autoExclusive">
+            <bool>true</bool>
            </property>
           </widget>
          </item>
@@ -378,6 +409,9 @@
        </property>
        <item>
         <widget class="QTableWidget" name="tableWidgetHiding">
+         <property name="editTriggers">
+          <set>QAbstractItemView::NoEditTriggers</set>
+         </property>
          <property name="selectionMode">
           <enum>QAbstractItemView::SingleSelection</enum>
          </property>
@@ -423,9 +457,178 @@
        </item>
       </layout>
      </widget>
-     <widget class="QWidget" name="pageCreate"/>
-     <widget class="QWidget" name="pageSettings"/>
+     <widget class="QWidget" name="pageCreate">
+      <property name="styleSheet">
+       <string notr="true">#pageCreate{
+background-color: rgb(255, 255, 255);
+}</string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="pageSettings">
+      <property name="styleSheet">
+       <string notr="true">#pageSettings{
+background-color: rgb(255, 255, 255);
+}</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <layout class="QFormLayout" name="formLayout">
+         <property name="fieldGrowthPolicy">
+          <enum>QFormLayout::AllNonFixedFieldsGrow</enum>
+         </property>
+         <item row="0" column="0">
+          <widget class="QLabel" name="label">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>程序显隐热键</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QKeySequenceEdit" name="keySequenceEditBoss">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>微软雅黑</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+           <property name="keySequence">
+            <string/>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="label_2">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="text">
+            <string>一键显隐全部</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QKeySequenceEdit" name="keySequenceEditOneKey">
+           <property name="minimumSize">
+            <size>
+             <width>0</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="maximumSize">
+            <size>
+             <width>16777215</width>
+             <height>30</height>
+            </size>
+           </property>
+           <property name="font">
+            <font>
+             <family>微软雅黑</family>
+             <pointsize>12</pointsize>
+             <weight>75</weight>
+             <bold>true</bold>
+            </font>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+       <item>
+        <widget class="QWidget" name="widget" native="true">
+         <widget class="QPushButton" name="pushButtonSettingsSave">
+          <property name="geometry">
+           <rect>
+            <x>780</x>
+            <y>160</y>
+            <width>81</width>
+            <height>33</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>81</width>
+            <height>33</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>81</width>
+            <height>33</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>保存设置</string>
+          </property>
+         </widget>
+         <widget class="QPushButton" name="pushButtonSettingsReset">
+          <property name="geometry">
+           <rect>
+            <x>680</x>
+            <y>160</y>
+            <width>81</width>
+            <height>33</height>
+           </rect>
+          </property>
+          <property name="minimumSize">
+           <size>
+            <width>81</width>
+            <height>33</height>
+           </size>
+          </property>
+          <property name="maximumSize">
+           <size>
+            <width>81</width>
+            <height>33</height>
+           </size>
+          </property>
+          <property name="text">
+           <string>重置设置</string>
+          </property>
+         </widget>
+        </widget>
+       </item>
+      </layout>
+     </widget>
      <widget class="QWidget" name="pageHelp">
+      <property name="styleSheet">
+       <string notr="true">#pageHelp{
+background-color: rgb(255, 255, 255);
+}</string>
+      </property>
       <widget class="QTextEdit" name="textEdit">
        <property name="geometry">
         <rect>

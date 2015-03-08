@@ -2,11 +2,18 @@
 
 #include <assert.h>
 #include <QDebug>
+#include <QFileIconProvider>
+
+#include "util/util.h"
 
 NewDialog::NewDialog(Hider* hider, QWidget *parent)
 	: QWidget(parent),
 	hider_(hider) {
 	ui.setupUi(this);
+	InitTable(ui.tableWidgetSwitching);
+	InitTable(ui.tableWidgetOption);
+
+
 	connect(ui.checkBoxSwitchWhenHide, SIGNAL(stateChanged(int)), this, SLOT(SlotSwitchCheckChanged(int)));
 	connect(ui.keySequenceEditVisible, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
 	connect(ui.keySequenceEditMax, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
@@ -17,18 +24,23 @@ NewDialog::NewDialog(Hider* hider, QWidget *parent)
 NewDialog::~NewDialog() {
 }
 
+void NewDialog::InitTable(QTableWidget* table) {
+	table->setColumnWidth(0, 18);
+	table->setColumnWidth(1, 45);
+	table->setColumnWidth(2, 300);
+	table->setColumnWidth(3, 285);
+}
+
 void NewDialog::Exec() {
-	ShowWin(ui.listWidgetOptionalWindows);
+	ShowWin(ui.tableWidgetOption);
 }
 
 void NewDialog::on_pushButtonCancel_clicked() {
-	//this->close();
 }
 
 void NewDialog::on_pushButtonOk_clicked() {
-	Add();
-	Reset();
-	//close();
+	if (Add())
+		Reset();
 }
 
 void NewDialog::Reset() {
@@ -37,13 +49,13 @@ void NewDialog::Reset() {
 	ui.keySequenceEditMax->clear();
 	ui.keySequenceEditMin->clear();
 	ui.keySequenceEditVisible->clear();
-	ui.listWidgetOptionalWindows->clear();
-	ui.listWidgetSwitchWindows->clear();
+	ui.tableWidgetOption->clearContents();
+	ui.tableWidgetSwitching->clearContents();
 }
 
-void NewDialog::Add() {
-	auto option_checked_windows = CheckedWindow(ui.listWidgetOptionalWindows);
-	auto switch_checked_windows = CheckedWindow(ui.listWidgetSwitchWindows);
+bool NewDialog::Add() {
+	auto option_checked_windows = CheckedWindow(ui.tableWidgetOption);
+	auto switch_checked_windows = CheckedWindow(ui.tableWidgetSwitching);
 
 	if (option_checked_windows.length() && !visible_key_seq_.toString().isEmpty()) {
 		Rule rule;
@@ -52,13 +64,17 @@ void NewDialog::Add() {
 			rule.switch_list = switch_checked_windows;
 
 		hider_->AddRule(visible_key_seq_, rule);
+		return true;
+	} else {
+		MsgBoxA(this, "警告", "未选择窗口或者未设置显隐快捷键");
+		return false;
 	}
 }
 
-WindowList NewDialog::CheckedWindow(const QListWidget* list) {
+WindowList NewDialog::CheckedWindow(const QTableWidget* list) {
 	WindowList infos;
-	for (int i = 0; i < list->count(); ++i) {
-		auto current_item = list->item(i);
+	for (int i = 0; i < list->rowCount(); ++i) {
+		auto current_item = list->item(i, 0);
 		if (current_item->checkState() != Qt::Checked)
 			continue;
 
@@ -81,14 +97,14 @@ void NewDialog::on_pushButtonRefresh_clicked() {
 }
 
 void NewDialog::on_pushButtonTest_clicked() {
-	auto checked_wins = CheckedWindow(ui.listWidgetOptionalWindows);
+	auto checked_wins = CheckedWindow(ui.tableWidgetOption);
 	for (auto& it : checked_wins) {
 		ShowWindow(it.hwnd, it.visible ? SW_HIDE : SW_SHOW);
 		hider_->SetVisible(it.hwnd, !it.visible);
 	}
 
 	if (ui.checkBoxSwitchWhenHide->isChecked()) {
-		auto switch_checked_wins = CheckedWindow(ui.listWidgetSwitchWindows);
+		auto switch_checked_wins = CheckedWindow(ui.tableWidgetSwitching);
 		for (auto& it : switch_checked_wins) {
 			ShowWindow(it.hwnd, SW_SHOW);
 			hider_->SetVisible(it.hwnd, !it.visible);
@@ -112,17 +128,38 @@ void NewDialog::SlotKeySeqChanged(const QKeySequence& key_seq) {
 		assert(0);
 }
 
-void NewDialog::ShowWin(QListWidget* list_widget) {
-	if (!list_widget)
-		list_widget = ui.listWidgetOptionalWindows;
+void NewDialog::ShowWin(QTableWidget* table_widget) {
+	if (!table_widget)
+		table_widget = ui.tableWidgetOption;
 
-	list_widget->clear();
+	table_widget->clearContents();
+	int index = 0;
 	for (const auto& it : hider_->WindowsInfo()) {
-		auto item = new QListWidgetItem;
-		item->setData(Qt::UserRole + 1, QVariant(WId(it.hwnd)));
-		item->setCheckState(Qt::Unchecked);
-		item->setText(it.name);
-		list_widget->addItem(item);
+		if (it.setted)
+			continue;
+		table_widget->setRowCount(index + 1);
+
+		auto check_item = new QTableWidgetItem;
+		auto pid_item = new QTableWidgetItem;
+		auto title_item = new QTableWidgetItem;
+		auto path_item = new QTableWidgetItem;
+
+		check_item->setData(Qt::UserRole + 1, QVariant(WId(it.hwnd)));
+		check_item->setCheckState(Qt::Unchecked);
+		pid_item->setText(QString::number(it.process_id));
+		title_item->setText(it.title);
+		title_item->setToolTip(it.title);
+		QFileIconProvider icon_provider;
+		title_item->setIcon(icon_provider.icon(QFileInfo(it.exe_path)));
+		path_item->setText(it.exe_path);
+		path_item->setToolTip(it.exe_path);
+
+		table_widget->setItem(index, 0, check_item);
+		table_widget->setItem(index, 1, pid_item);
+		table_widget->setItem(index, 2, title_item);
+		table_widget->setItem(index, 3, path_item);
+
+		index++;
 	}
 }
 
@@ -130,5 +167,5 @@ void NewDialog::ShowSwitchWidget(bool show) {
 	ui.groupBoxSwitchWindow->setVisible(show);
 	ui.labelArrow->setVisible(show);
 	if (show)
-		ShowWin(ui.listWidgetSwitchWindows);
+		ShowWin(ui.tableWidgetSwitching);
 }

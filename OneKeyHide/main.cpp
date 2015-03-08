@@ -3,6 +3,8 @@
 #include <QFile>
 #include <QMessageBox>
 
+#include "util/util.h"
+
 int main(int argc, char *argv[])
 {
 	QApplication app(argc, argv);
@@ -15,6 +17,6 @@ int main(int argc, char *argv[])
 		app.setStyleSheet(file.readAll());
 		return app.exec();
 	} else {
-		QMessageBox::information(NULL, "Error", "load skin file error!");
+		MsgBoxA(NULL, "错误", "加载皮肤文件错误，请联系卖家！");
 	}
 }

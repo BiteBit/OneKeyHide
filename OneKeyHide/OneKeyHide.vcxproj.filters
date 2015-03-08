@@ -50,6 +50,9 @@
     <Filter Include="Source Files\3rd\qxtglobalshortcut">
       <UniqueIdentifier>{13d06381-4ad5-49a3-99aa-193d38fc49c2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\3rd\volume">
+      <UniqueIdentifier>{facdf97d-72a4-45c4-9718-db958f34c41e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base-ui\frameless_dialog.cpp">
@@ -68,15 +71,6 @@
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\Release\moc_hider.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="ui\onekeyhide.cpp">
-      <Filter>Source Files\ui</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Debug\moc_onekeyhide.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="GeneratedFiles\Release\moc_onekeyhide.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="main.cpp">
@@ -106,6 +100,18 @@
     <ClCompile Include="3rd\qxtglobalshortcut\qxtglobalshortcut_win.cpp">
       <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
     </ClCompile>
+    <ClCompile Include="3rd\volume\volume.cpp">
+      <Filter>Source Files\3rd\volume</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\onekeyhide.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_onekeyhide.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_onekeyhide.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="base-ui\frameless_dialog.h">
@@ -123,12 +129,6 @@
     <CustomBuild Include="core\hider.h">
       <Filter>Source Files\core</Filter>
     </CustomBuild>
-    <CustomBuild Include="ui\onekeyhide.h">
-      <Filter>Source Files\ui</Filter>
-    </CustomBuild>
-    <CustomBuild Include="ui\onekeyhide.ui">
-      <Filter>Source Files\ui</Filter>
-    </CustomBuild>
     <CustomBuild Include="ui\newdialog.ui">
       <Filter>Source Files\ui</Filter>
     </CustomBuild>
@@ -140,6 +140,12 @@
     </CustomBuild>
     <CustomBuild Include="3rd\qxtglobalshortcut\qxtglobalshortcut.h">
       <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\onekeyhide.h">
+      <Filter>Source Files\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\onekeyhide.ui">
+      <Filter>Source Files\ui</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -154,9 +160,6 @@
     <ClInclude Include="core\windowinfo.h">
       <Filter>Source Files\core</Filter>
     </ClInclude>
-    <ClInclude Include="GeneratedFiles\ui_onekeyhide.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_newdialog.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
@@ -167,6 +170,12 @@
       <Filter>Source Files\3rd\qxtglobalshortcut</Filter>
     </ClInclude>
     <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3rd\volume\volume.h">
+      <Filter>Source Files\3rd\volume</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_onekeyhide.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

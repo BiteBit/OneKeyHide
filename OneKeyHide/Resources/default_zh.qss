@@ -71,7 +71,8 @@ background-image: url(:/OneKeyHide/Resources/logo.png)
 background-image: url(:/OneKeyHide/Resources/arrow.png);
 background-repeat: repeat-y
 }
-/*----------------------------tool buttons------------------------------------*/
+/*----------------------------菜单栏按钮------------------------------------*/
+/*----------------------------菜单栏按钮------------------------------------*/
 QPushButton#pushButtonMenu{
 	border-style:flat;
 	background-image: url(:/OneKeyHide/Resources/menu/menu.png);
@@ -108,13 +109,40 @@ QPushButton#pushButtonClose{
 QPushButton#pushButtonClose:hover:pressed{background-color:red;border-style:flat;}
 QPushButton#pushButtonClose:hover:!pressed{background-color:red;border-style:flat;}
 
+/*----------------------------通用按钮---------------------------------------*/
+/*----------------------------通用按钮---------------------------------------*/
+#pushButtonSettingsReset,#pushButtonSettingsSave,#pushButtonCancel,#pushButtonOk,#pushButtonTest,#pushButtonRefresh {
+	border-style:flat;
+	background-image: url(:/OneKeyHide/Resources/button/btn_bg1.png);
+}
+#pushButtonSettingsReset:hover:pressed,
+#pushButtonSettingsSave:hover:pressed,
+#pushButtonCancel:hover:pressed,
+#pushButtonOk:hover:pressed,
+#pushButtonTest:hover:pressed,
+#pushButtonRefresh:hover:pressed {
+	background-image: url(:/OneKeyHide/Resources/button/btn_bg1.png);
+}
+#pushButtonSettingsReset:hover:!pressed,
+#pushButtonSettingsSave:hover:!pressed,
+#pushButtonCancel:hover:!pressed,
+#pushButtonOk:hover:!pressed,
+#pushButtonTest:hover:!pressed,
+#pushButtonRefresh:hover:!pressed {
+	background-image: url(:/OneKeyHide/Resources/button/btn_bg2.png);
+}
 
-/*-------------------------------------------------------------------*/
+
+/*----------------------------工具栏菜单---------------------------------------*/
+/*----------------------------工具栏菜单---------------------------------------*/
 QPushButton#pushButtonHome {
 	border-style:flat;
 	image: url(:/OneKeyHide/Resources/tool_buttons/home.png);
 }
 QPushButton#pushButtonHome:hover:pressed {
+	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
+}
+QPushButton#pushButtonHome:checked {
 	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
 }
 QPushButton#pushButtonHome:hover:!pressed {
@@ -128,6 +156,9 @@ QPushButton#pushButtonNewHide {
 QPushButton#pushButtonNewHide:hover:pressed {
 	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
 }
+QPushButton#pushButtonNewHide:checked {
+	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
+}
 QPushButton#pushButtonNewHide:hover:!pressed {
 	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg-press.png);
 }
@@ -139,6 +170,9 @@ QPushButton#pushButtonSettings {
 QPushButton#pushButtonSettings:hover:pressed {
 	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
 }
+QPushButton#pushButtonSettings:checked {
+	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
+}
 QPushButton#pushButtonSettings:hover:!pressed {
 	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg-press.png);
 }
@@ -148,6 +182,9 @@ QPushButton#pushButtonHelp {
 	image: url(:/OneKeyHide/Resources/tool_buttons/heart.png);
 }
 QPushButton#pushButtonHelp:hover:pressed {
+	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
+}
+QPushButton#pushButtonHelp:checked {
 	background-image: url(:/OneKeyHide/Resources/tool_buttons/bg.png);
 }
 QPushButton#pushButtonHelp:hover:!pressed {

@@ -8,6 +8,7 @@
 #include <Windows.h>
 
 #include "3rd/qxtglobalshortcut/qxtglobalshortcut.h"
+#include "3rd/volume/volume.h"
 
 class Hider : public QObject {
 	Q_OBJECT
@@ -37,12 +38,6 @@ public:
 
 	void OneKeySwitch(WindowList& list);
 
-	void SetShowHideHotkey(HWND, const QString&);
-
-	void SetMaxHotkey(HWND, const QString&);
-
-	void SetMinHotkey(HWND, const QString&);
-
 	void SetVisible(HWND, bool visible);
 public slots :
 	void StartEnumWindows();
@@ -54,11 +49,11 @@ private:
 private:
 	static WindowHash windows_info_;
 
-	Rules rules_;
-
 	QHash<QxtGlobalShortcut*, Rule> actions_;
 
 	Delegate* delegate_;
+
+	Volumer volumer_;
 };
 
 #endif // HIDER_H

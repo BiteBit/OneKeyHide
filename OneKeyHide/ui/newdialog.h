@@ -15,7 +15,7 @@ public:
 
 	void Exec();
 	
-	void ShowWin(QListWidget* list_widget = NULL);
+	void ShowWin(QTableWidget* list_widget = NULL);
 private slots:
 	void on_pushButtonCancel_clicked();
 
@@ -29,13 +29,15 @@ private slots:
 
 	void SlotKeySeqChanged(const QKeySequence&);
 private:
+	void InitTable(QTableWidget* table);
+
 	void ShowSwitchWidget(bool show);
 
-	void Add();
+	bool Add();
 
 	void Reset();
 
-	WindowList CheckedWindow(const QListWidget* list);
+	WindowList CheckedWindow(const QTableWidget* list);
 private:
 	Ui::NewDialog ui;
 

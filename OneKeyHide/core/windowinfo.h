@@ -9,15 +9,21 @@
 struct Window {
 	Window() :
 		hwnd(NULL),
+		process_id(0),
 		visible(true),
-		voice_follow_vision(false) {};
+		voice_follow_vision(false),
+		setted(false) {};
 	HWND hwnd;
+	HANDLE process_handle;
+	int process_id;
 	bool visible;
 	bool voice_follow_vision;
-	QString name;
+	bool setted;
+	QString title;
 	QString show_hide_hotkey;
 	QString max_hotkey;
 	QString min_hotkey;
+	QString exe_path;
 };
 typedef QList<Window> WindowList;
 typedef QHash<HWND, Window> WindowHash;
