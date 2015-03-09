@@ -7,6 +7,7 @@
 #include <QDebug>
 #include <QFileIconProvider>
 
+#include "ui/settingswidget.h"
 #include "util/util.h"
 
 const int kShadowWidth = 5;
@@ -17,19 +18,15 @@ OneKeyHide::OneKeyHide(QWidget *parent)
 	setAttribute(Qt::WA_TranslucentBackground);
 	
 	InitTable(ui.tableWidgetHiding);
-	ui.pushButtonHome->click();
 	
 	hider_ = new Hider(this);
 	new_dialog_ = new NewDialog(hider_);
 	SetWidgetToWidget(ui.pageCreate, new_dialog_);
-	hider_->StartEnumWindows();
 
-	ui.keySequenceEditBoss->setKeySequence(QKeySequence::fromString("Ctrl+Shift+Home"));
-	ui.keySequenceEditOneKey->setKeySequence(QKeySequence::fromString("Ctrl+Shift+End"));
-	boss_shortcut_ = new QxtGlobalShortcut(ui.keySequenceEditBoss->keySequence());
-	onekey_shortcut_ = new QxtGlobalShortcut(ui.keySequenceEditOneKey->keySequence());
-	connect(boss_shortcut_, SIGNAL(activated()), this, SLOT(SlotVisibleActivated()));
-	connect(onekey_shortcut_, SIGNAL(activated()), this, SLOT(SlotOnekeyActivated()));
+	auto setting_widget = new SettingsWidget(this);
+	SetWidgetToWidget(ui.pageSettings, setting_widget);
+
+	ui.pushButtonHome->click();
 }
 
 OneKeyHide::~OneKeyHide() {
@@ -94,19 +91,24 @@ void OneKeyHide::AddRow(QTableWidget* table, bool is_hide, const Rule& rule) {
 
 void OneKeyHide::on_pushButtonHome_clicked() {
 	ui.stackedWidget->setCurrentWidget(ui.pageHome);
+	hider_->EnableEnum(false);
 }
 
 void OneKeyHide::on_pushButtonNewHide_clicked() {
+	hider_->EnableEnum(true);
+	hider_->StartEnumWindows();
 	ui.stackedWidget->setCurrentWidget(ui.pageCreate);
 	new_dialog_->Exec();
 }
 
 void OneKeyHide::on_pushButtonSettings_clicked() {
 	ui.stackedWidget->setCurrentWidget(ui.pageSettings);
+	hider_->EnableEnum(false);
 }
 
 void OneKeyHide::on_pushButtonHelp_clicked() {
 	ui.stackedWidget->setCurrentWidget(ui.pageHelp);
+	hider_->EnableEnum(false);
 }
 
 void OneKeyHide::on_pushButtonClose_clicked() {
@@ -125,18 +127,6 @@ void OneKeyHide::on_pushButtonMin_clicked() {
 	this->showMinimized();
 }
 
-void OneKeyHide::on_pushButtonSettingsReset_clicked() {
-	ui.keySequenceEditBoss->setKeySequence(QKeySequence::fromString("Ctrl+Shift+Home"));
-	ui.keySequenceEditOneKey->setKeySequence(QKeySequence::fromString("Ctrl+Shift+End"));
-	boss_shortcut_->setShortcut(QKeySequence::fromString("Ctrl+Shift+Home"));
-	onekey_shortcut_->setShortcut(QKeySequence::fromString("Ctrl+Shift+End"));
-}
-
-void OneKeyHide::on_pushButtonSettingsSave_clicked() {
-	boss_shortcut_->setShortcut(ui.keySequenceEditBoss->keySequence());
-	onekey_shortcut_->setShortcut(ui.keySequenceEditOneKey->keySequence());
-}
-
 void OneKeyHide::SlotVisibleActivated() {
 	if (isVisible())
 		hide();
@@ -152,8 +142,10 @@ void OneKeyHide::OnEnumStart() {
 }
 
 void OneKeyHide::OnEnumFinish(const WindowHash& infos) {
-	if (new_dialog_)
-		new_dialog_->ShowWin();
+	if (new_dialog_) {
+		new_dialog_->ShowWin(0);
+		new_dialog_->ShowWin(1);
+	}
 }
 
 void OneKeyHide::OnNewRuleAdd(const Rule&  rule) {

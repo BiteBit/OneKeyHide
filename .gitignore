@@ -2,7 +2,7 @@
 *.suo
 *.user
 *.opensdf
-
+*.aps
 Obj/
 Win32/
 OneKeyHide/GeneratedFiles

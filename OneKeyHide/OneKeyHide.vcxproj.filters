@@ -112,6 +112,18 @@
     <ClCompile Include="GeneratedFiles\Release\moc_onekeyhide.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
+    <ClCompile Include="core\settings.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_settingswidget.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_settingswidget.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="ui\settingswidget.cpp">
+      <Filter>Source Files\ui</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="base-ui\frameless_dialog.h">
@@ -147,6 +159,15 @@
     <CustomBuild Include="ui\onekeyhide.ui">
       <Filter>Source Files\ui</Filter>
     </CustomBuild>
+    <CustomBuild Include="core\settings.h">
+      <Filter>Source Files\core</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\settingswidget.ui">
+      <Filter>Source Files\ui</Filter>
+    </CustomBuild>
+    <CustomBuild Include="ui\settingswidget.h">
+      <Filter>Source Files\ui</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\default_zh.qss">
@@ -176,6 +197,9 @@
       <Filter>Source Files\3rd\volume</Filter>
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_onekeyhide.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="GeneratedFiles\ui_settingswidget.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

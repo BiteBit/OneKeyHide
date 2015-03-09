@@ -16,12 +16,11 @@ public:
 	void Exec();
 	
 	void ShowWin(QTableWidget* list_widget = NULL);
+	void ShowWin(int mode);
 private slots:
 	void on_pushButtonCancel_clicked();
 
 	void on_pushButtonOk_clicked();
-
-	void on_pushButtonRefresh_clicked();
 
 	void on_pushButtonTest_clicked();
 

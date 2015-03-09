@@ -15,12 +15,6 @@
     {
         "Entry"
         {
-        "MsmKey" = "8:_064BBC4BBC2B4DA3B0ED4E0B52D84A4C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_0B1EF4125C644EF28F9640AB971643A2"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -46,6 +40,18 @@
         "Entry"
         {
         "MsmKey" = "8:_3AFED0B166FF4B02811AB5D592C1D65D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_52A30E39A53748898B84523CC2CA616D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_59994AECBA4A4B1D9CBE11E7EDEB5C49"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -97,6 +103,14 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+            }
         }
         "Release"
         {
@@ -113,6 +127,22 @@
         "PrivateKeyFile" = "8:"
         "TimeStampServer" = "8:"
         "InstallerBootstrapper" = "3:2"
+            "BootstrapperCfg:{63ACBE69-63AA-4F98-B2B6-99F9E24495F2}"
+            {
+            "Enabled" = "11:TRUE"
+            "PromptEnabled" = "11:TRUE"
+            "PrerequisitesLocation" = "2:1"
+            "Url" = "8:"
+            "ComponentsUrl" = "8:"
+                "Items"
+                {
+                    "{EDC2488A-8267-493A-A98E-7D9C3B36CDF3}:.NETFramework,Version=v4.5"
+                    {
+                    "Name" = "8:Microsoft .NET Framework 4.5 (x86 and x64)"
+                    "ProductCode" = "8:.NETFramework,Version=v4.5"
+                    }
+                }
+            }
         }
     }
     "Deployable"
@@ -134,26 +164,6 @@
         }
         "File"
         {
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_064BBC4BBC2B4DA3B0ED4E0B52D84A4C"
-            {
-            "SourcePath" = "8:..\\Win32\\Release\\OneKeyHide.exe"
-            "TargetName" = "8:OneKeyHide.exe"
-            "Tag" = "8:"
-            "Folder" = "8:_2013C94CB90D4AD9B39F41CE1EE1FF55"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_0B1EF4125C644EF28F9640AB971643A2"
             {
             "SourcePath" = "8:asserts\\Qt5Widgets.dll"
@@ -240,6 +250,46 @@
             "TargetName" = "8:icudt53.dll"
             "Tag" = "8:"
             "Folder" = "8:_2013C94CB90D4AD9B39F41CE1EE1FF55"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_52A30E39A53748898B84523CC2CA616D"
+            {
+            "SourcePath" = "8:..\\Win32\\Release\\OneKeyHide_VP.exe"
+            "TargetName" = "8:OneKeyHide_VP.exe"
+            "Tag" = "8:"
+            "Folder" = "8:_2013C94CB90D4AD9B39F41CE1EE1FF55"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_59994AECBA4A4B1D9CBE11E7EDEB5C49"
+            {
+            "SourcePath" = "8:asserts\\platforms\\qwindows.dll"
+            "TargetName" = "8:qwindows.dll"
+            "Tag" = "8:"
+            "Folder" = "8:_642242CBE5204219B62F67B28E792A13"
             "Condition" = "8:"
             "Transitive" = "11:FALSE"
             "Vital" = "11:TRUE"
@@ -381,6 +431,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_642242CBE5204219B62F67B28E792A13"
+                    {
+                    "Name" = "8:plugins"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_79D45AE1D0D44362A9AA6D8FF5B529CD"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_722167CD55D04DC1A397BDD5F23B703F"
@@ -411,7 +472,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:老板不在"
         "ProductCode" = "8:{B61A7047-F740-4F20-8572-E5B7FF765FF4}"
-        "PackageCode" = "8:{7F120849-61D9-4A82-8778-79298951B86F}"
+        "PackageCode" = "8:{6FA413E8-CFC1-452F-A091-B42230F350BD}"
         "UpgradeCode" = "8:{34A1190B-B568-4E28-B4BD-6988D51F3AA1}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -531,7 +592,7 @@
         }
         "Shortcut"
         {
-            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_766CC97D922B4EFB8603FA91EAA8A72E"
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8C4741813CCA49248A2652B6A6DEA2F6"
             {
             "Name" = "8:Boss"
             "Arguments" = "8:"
@@ -539,7 +600,7 @@
             "ShowCmd" = "3:1"
             "IconIndex" = "3:0"
             "Transitive" = "11:FALSE"
-            "Target" = "8:_064BBC4BBC2B4DA3B0ED4E0B52D84A4C"
+            "Target" = "8:_52A30E39A53748898B84523CC2CA616D"
             "Folder" = "8:_0C1CEEC755F44B1499CFF26D89CFE4A3"
             "WorkingFolder" = "8:_2013C94CB90D4AD9B39F41CE1EE1FF55"
             "Icon" = "8:_D2F3EC150D59407FA992AEC31D4E98BE"

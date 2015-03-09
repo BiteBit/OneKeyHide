@@ -21,6 +21,7 @@ QStringList whitelist = QStringList() << "";
 
 Hider::Hider(Delegate* delegate)
 	: QObject(NULL),
+	enable_enum_window_(false),
 	delegate_(delegate) {
 	volumer_.SetVolume(0);
 	volumer_.SetMuteEx(true);
@@ -31,8 +32,11 @@ Hider::~Hider() {
 
 void Hider::StartEnumWindows() {
 	delegate_->OnEnumStart();
+	windows_info_.clear();
 	::EnumWindows((WNDENUMPROC)MyEnumWindowsProc, 0);
 	delegate_->OnEnumFinish(windows_info_);
+	if (enable_enum_window_)
+		QTimer::singleShot(1000, this, SLOT(StartEnumWindows()));
 }
 
 void Hider::SlotShortCutActivated() {
@@ -87,7 +91,7 @@ bool CALLBACK Hider::MyEnumWindowsProc(HWND hwnd, LPARAM lParam) {
 			window.exe_path = QString::fromStdWString(exe_file_path);
 
 			//qDebug() << hwnd << window.title << window.exe_path;
-			if (/*!window.exe_path.isEmpty() && */window.process_handle && !window.title.isEmpty() && window.process_id)
+			if (window.process_handle && window.process_id)
 				windows_info_.insert(hwnd, window);	
 		} else {
 			TCHAR lpWinTitle[256];
@@ -140,88 +144,4 @@ void Hider::SetVisible(HWND hwnd, bool visible) {
 	auto it = windows_info_.find(hwnd);
 	if (it != windows_info_.end())
 		it->visible = visible;
-}
-
-BOOL MuteProcessVolume()
-{
-	//1..屏蔽进程mp3等声音 
-	HMODULE	hDsound = LoadLibraryA("DSound.dll");
-	if (!hDsound)
-		return FALSE;
-
-	LPVOID lpDirectSoundCreate = GetProcAddress(hDsound, "DirectSoundCreate");
-	if (!lpDirectSoundCreate)
-		return FALSE;
-
-	DWORD NewProtect = PAGE_EXECUTE_READWRITE;
-	DWORD OldProtect = 0;
-	if (!VirtualProtect(lpDirectSoundCreate, 1, NewProtect, &OldProtect)) {
-		FreeLibrary(hDsound);
-		return FALSE;
-	}
-
-	//拷贝内存
-	u_char szBuf[] = { 0xC2, 0x0C, 0x00 };
-	MoveMemory(lpDirectSoundCreate, szBuf, 3);
-
-	//恢复  
-	if (!VirtualProtect(lpDirectSoundCreate, 1, OldProtect, &NewProtect)) {
-		FreeLibrary(hDsound);
-		return FALSE;
-	}
-
-	//释放DSound.dll 
-	FreeLibrary(hDsound);
-
-
-	//2..屏蔽进程Flash等声音  
-	HMODULE hWinmm = LoadLibraryA("winmm.dll");
-	if (!hWinmm)
-		return FALSE;
-
-	//midiStreamOpen:为输出,打开一个MIDI流
-	LPVOID lpmidiStreamOpen = GetProcAddress(hWinmm, "midiStreamOpen");
-	if (!lpmidiStreamOpen)
-		return FALSE;
-
-	NewProtect = PAGE_EXECUTE_READWRITE;
-	if (!VirtualProtect(lpmidiStreamOpen, 1, NewProtect, &OldProtect))
-		FreeLibrary(hWinmm);
-		return FALSE;
-
-	//拷贝内存
-	u_char szBuf2[] = { 0xC2, 0x04, 0x00 };
-	MoveMemory(lpmidiStreamOpen, szBuf2, 3);
-
-	//恢复  
-	if (!VirtualProtect(lpmidiStreamOpen, 1, OldProtect, &NewProtect)) {
-		FreeLibrary(hWinmm);
-		return FALSE;
-	}
-
-	//waveOutWrite:向指定的波形输出设备发送一个数据块
-	LPVOID lpwaveOutWrite = GetProcAddress(hWinmm, "waveOutWrite");
-	if (!lpwaveOutWrite)
-		return FALSE;
-
-	NewProtect = PAGE_EXECUTE_READWRITE;
-	if (!VirtualProtect(lpwaveOutWrite, 1, NewProtect, &OldProtect)) {
-		FreeLibrary(hWinmm);
-		return FALSE;
-	}
-
-	//拷贝内存
-	u_char szBuf3[] = { 0xC2, 0x0C, 0x00 };
-	MoveMemory(lpwaveOutWrite, szBuf3, 3);
-
-	//恢复  
-	if (!VirtualProtect(lpwaveOutWrite, 1, OldProtect, &NewProtect)) {
-		FreeLibrary(hWinmm);
-		return FALSE;
-	}
-
-	//释放winmm.dll 
-	FreeLibrary(hWinmm);
-
-	return TRUE;
 }

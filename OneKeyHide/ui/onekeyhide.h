@@ -31,11 +31,9 @@ public slots:
 	void on_pushButtonMax_clicked();
 	void on_pushButtonMin_clicked();
 
-	void on_pushButtonSettingsReset_clicked();
-	void on_pushButtonSettingsSave_clicked();
-
 	void SlotVisibleActivated();
 	void SlotOnekeyActivated();
+
 private:
 	void SetWidgetToWidget(QWidget* parent, QWidget* child);
 
@@ -50,9 +48,6 @@ private:
 	Hider* hider_;
 
 	NewDialog* new_dialog_;
-
-	QxtGlobalShortcut* boss_shortcut_;
-	QxtGlobalShortcut* onekey_shortcut_;
 };
 
 #endif // ONEKEYHIDE_H

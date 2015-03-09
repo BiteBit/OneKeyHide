@@ -32,6 +32,8 @@ public:
 
 	static Window FindByHwnd(HWND);
 
+	void EnableEnum(bool enable) { enable_enum_window_ = enable; }
+
 	void AddRule(const QKeySequence& key_seq, const Rule& rule);
 
 	void OneKeyShowHide(WindowList& list);
@@ -54,6 +56,8 @@ private:
 	Delegate* delegate_;
 
 	Volumer volumer_;
+
+	bool enable_enum_window_;
 };
 
 #endif // HIDER_H

@@ -16,8 +16,6 @@ NewDialog::NewDialog(Hider* hider, QWidget *parent)
 
 	connect(ui.checkBoxSwitchWhenHide, SIGNAL(stateChanged(int)), this, SLOT(SlotSwitchCheckChanged(int)));
 	connect(ui.keySequenceEditVisible, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
-	//connect(ui.keySequenceEditMax, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
-	//connect(ui.keySequenceEditMin, SIGNAL(keySequenceChanged(QKeySequence)), this, SLOT(SlotKeySeqChanged(QKeySequence)));
 	ShowSwitchWidget(false);
 }
 
@@ -46,8 +44,6 @@ void NewDialog::on_pushButtonOk_clicked() {
 void NewDialog::Reset() {
 	ui.checkBoxOpenVoiceWhenShow->setChecked(true);
 	ui.checkBoxSwitchWhenHide->setChecked(false);
-	//ui.keySequenceEditMax->clear();
-	//ui.keySequenceEditMin->clear();
 	ui.keySequenceEditVisible->clear();
 	ui.tableWidgetOption->clearContents();
 	ui.tableWidgetSwitching->clearContents();
@@ -90,10 +86,6 @@ WindowList NewDialog::CheckedWindow(const QTableWidget* list) {
 	return infos;
 }
 
-void NewDialog::on_pushButtonRefresh_clicked() {
-	hider_->StartEnumWindows();
-}
-
 void NewDialog::on_pushButtonTest_clicked() {
 	auto checked_wins = CheckedWindow(ui.tableWidgetOption);
 	for (auto& it : checked_wins) {
@@ -116,17 +108,28 @@ void NewDialog::SlotSwitchCheckChanged(int state) {
 }
 
 void NewDialog::SlotKeySeqChanged(const QKeySequence& key_seq) {
-	//if (sender() == ui.keySequenceEditMax)
-	//	max_key_seq_ = key_seq;
-	//else if (sender() == ui.keySequenceEditMin)
-	//	min_key_seq_ = key_seq;
-	//else if (sender() == ui.keySequenceEditVisible)
 	visible_key_seq_ = key_seq;
+}
+
+void NewDialog::ShowWin(int mode) {
+	if (mode == 0)
+		ShowWin(ui.tableWidgetOption);
+	else
+		ShowWin(ui.tableWidgetSwitching);
 }
 
 void NewDialog::ShowWin(QTableWidget* table_widget) {
 	if (!table_widget)
 		table_widget = ui.tableWidgetOption;
+
+	QList<HWND> optional_select_windows;
+	for (int i = 0; i < table_widget->rowCount(); ++i) {
+		if (table_widget->item(i, 0)->checkState() != Qt::Checked)
+			continue;
+
+		auto id = table_widget->item(i, 0)->data(Qt::UserRole + 1).toInt();
+		optional_select_windows.append((HWND)(WId)id);
+	}
 
 	table_widget->clearContents();
 	int index = 0;
@@ -141,7 +144,7 @@ void NewDialog::ShowWin(QTableWidget* table_widget) {
 		auto path_item = new QTableWidgetItem;
 
 		check_item->setData(Qt::UserRole + 1, QVariant(WId(it.hwnd)));
-		check_item->setCheckState(Qt::Unchecked);
+		check_item->setCheckState(optional_select_windows.contains(it.hwnd) ? Qt::Checked : Qt::Unchecked);
 		pid_item->setText(QString::number(it.process_id));
 		title_item->setText(it.title);
 		title_item->setToolTip(it.title);
