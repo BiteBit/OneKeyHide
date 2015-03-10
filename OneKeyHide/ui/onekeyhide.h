@@ -4,6 +4,9 @@
 #include <QtWidgets/QDialog>
 #include "ui_onekeyhide.h"
 
+#include <QVBoxLayout>
+#include <QMenu>
+
 #include "core/hider.h"
 
 #include "base-ui/supportframess.h"
@@ -34,6 +37,7 @@ public slots:
 	void SlotVisibleActivated();
 	void SlotOnekeyActivated();
 
+	void SlotDelete();
 private:
 	void SetWidgetToWidget(QWidget* parent, QWidget* child);
 
@@ -42,12 +46,20 @@ private:
 	void InitTable(QTableWidget* table);
 
 	void AddRow(QTableWidget* table, bool is_hide, const Rule& list);
+
+	void AddHelp(const QString& title, const QString& gif_path);
+
+	bool eventFilter(QObject* obj, QEvent* e);
 private:
 	Ui::OneKeyHideClass ui;
 
 	Hider* hider_;
 
 	NewDialog* new_dialog_;
+
+	QVBoxLayout* help_layout_;
+
+	QMenu menu_;
 };
 
 #endif // ONEKEYHIDE_H

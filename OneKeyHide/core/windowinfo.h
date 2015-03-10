@@ -6,13 +6,17 @@
 #include <QKeySequence>
 #include <Windows.h>
 
+#include "3rd/qxtglobalshortcut/qxtglobalshortcut.h"
+
 struct Window {
 	Window() :
 		hwnd(NULL),
+		shortcut(NULL),
 		process_id(0),
 		visible(true),
 		voice_follow_vision(false),
 		setted(false) {};
+
 	HWND hwnd;
 	HANDLE process_handle;
 	int process_id;
@@ -22,6 +26,7 @@ struct Window {
 	QString title;
 	QString show_hide_hotkey;
 	QString exe_path;
+	QxtGlobalShortcut* shortcut;
 };
 typedef QList<Window> WindowList;
 typedef QHash<HWND, Window> WindowHash;

@@ -33,5 +33,13 @@
         <file>Resources/tool_buttons/skull.png</file>
         <file>Resources/tool_buttons/bg.png</file>
         <file>Resources/tool_buttons/bg-press.png</file>
+        <file>Resources/help/delete.gif</file>
+        <file>Resources/help/hide.gif</file>
+        <file>Resources/help/install.gif</file>
+        <file>Resources/help/modify.gif</file>
+        <file>Resources/help/new_hide.gif</file>
+        <file>Resources/help/new_switch.gif</file>
+        <file>Resources/help/uninstall.gif</file>
+        <file>Resources/help/update.gif</file>
     </qresource>
 </RCC>

@@ -36,11 +36,15 @@ public:
 
 	void AddRule(const QKeySequence& key_seq, const Rule& rule);
 
+	void OneKeyAllHide();
+
 	void OneKeyShowHide(WindowList& list);
 
 	void OneKeySwitch(WindowList& list);
 
 	void SetVisible(HWND, bool visible);
+
+	void SetUnsetted(HWND);
 public slots :
 	void StartEnumWindows();
 

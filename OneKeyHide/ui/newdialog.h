@@ -12,8 +12,6 @@ class NewDialog : public QWidget {
 public:
 	NewDialog(Hider* hider, QWidget *parent = 0);
 	~NewDialog();
-
-	void Exec();
 	
 	void ShowWin(QTableWidget* list_widget = NULL);
 	void ShowWin(int mode);

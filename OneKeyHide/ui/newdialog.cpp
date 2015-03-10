@@ -29,10 +29,6 @@ void NewDialog::InitTable(QTableWidget* table) {
 	table->setColumnWidth(3, 285);
 }
 
-void NewDialog::Exec() {
-	ShowWin(ui.tableWidgetOption);
-}
-
 void NewDialog::on_pushButtonCancel_clicked() {
 }
 
@@ -47,6 +43,8 @@ void NewDialog::Reset() {
 	ui.keySequenceEditVisible->clear();
 	ui.tableWidgetOption->clearContents();
 	ui.tableWidgetSwitching->clearContents();
+	ui.tableWidgetOption->setRowCount(0);
+	ui.tableWidgetSwitching->setRowCount(0);
 }
 
 bool NewDialog::Add() {
@@ -119,10 +117,13 @@ void NewDialog::ShowWin(int mode) {
 }
 
 void NewDialog::ShowWin(QTableWidget* table_widget) {
+	if (!this->isVisible())
+		return;
 	if (!table_widget)
 		table_widget = ui.tableWidgetOption;
 
 	QList<HWND> optional_select_windows;
+	int i = table_widget->rowCount();
 	for (int i = 0; i < table_widget->rowCount(); ++i) {
 		if (table_widget->item(i, 0)->checkState() != Qt::Checked)
 			continue;

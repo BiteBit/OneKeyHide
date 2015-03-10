@@ -6,6 +6,8 @@
 #include <QHBoxLayout>
 #include <QDebug>
 #include <QFileIconProvider>
+#include <QContextMenuEvent>
+#include <QMovie>
 
 #include "ui/settingswidget.h"
 #include "util/util.h"
@@ -25,6 +27,29 @@ OneKeyHide::OneKeyHide(QWidget *parent)
 
 	auto setting_widget = new SettingsWidget(this);
 	SetWidgetToWidget(ui.pageSettings, setting_widget);
+
+	help_layout_ = new QVBoxLayout;
+	help_layout_->setSpacing(20);
+	ui.scrollAreaWidgetContents->setLayout(help_layout_);
+	auto boss_link = new QLabel(G2U("<html><head/><body><p align='center'><a href='http://shop117029376.taobao.com/'><span style=' font-size:28pt; font-weigth:100pt; text-decoration: underline; color:#ff0000;'>老板不在官方旗舰店</span></a></p></body></html>"));
+	boss_link->setOpenExternalLinks(true);
+	help_layout_->addWidget(boss_link);
+	help_layout_->addSpacerItem(new QSpacerItem(20, 40));
+	AddHelp(G2U("1.新建隐藏窗口"), ":/OneKeyHide/Resources/help/new_hide.gif");
+	AddHelp(G2U("2.新建切换窗口"), ":/OneKeyHide/Resources/help/new_switch.gif");
+	AddHelp(G2U("3.一键隐藏【老板不在】"), ":/OneKeyHide/Resources/help/hide.gif");
+	AddHelp(G2U("4.修改一条窗口切换规则"), ":/OneKeyHide/Resources/help/modify.gif");
+	AddHelp(G2U("5.删除一条窗口切换规则"), ":/OneKeyHide/Resources/help/delete.gif");
+	AddHelp(G2U("6.检测升级更新"), ":/OneKeyHide/Resources/help/update.gif");
+	AddHelp(G2U("7.安装程序"), ":/OneKeyHide/Resources/help/install.gif");
+	AddHelp(G2U("8.卸载程序"), ":/OneKeyHide/Resources/help/uninstall.gif");
+	help_layout_->addSpacerItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Expanding));
+	
+	auto delete_act = new QAction(G2U("删除"), &menu_);
+	connect(delete_act, SIGNAL(triggered()), this, SLOT(SlotDelete()));
+	menu_.addAction(delete_act);
+
+	ui.tableWidgetHiding->installEventFilter(this);
 
 	ui.pushButtonHome->click();
 }
@@ -46,6 +71,41 @@ void OneKeyHide::InitTable(QTableWidget* table) {
 	table->setColumnWidth(3, 60);
 	table->setColumnWidth(4, 200);
 	table->setColumnWidth(5, 280);
+}
+
+bool OneKeyHide::eventFilter(QObject* obj, QEvent* e) {
+	if (obj == ui.tableWidgetHiding && e->type() == QEvent::ContextMenu) {
+		QContextMenuEvent* menu_event = (QContextMenuEvent*)e;
+		menu_.move(menu_event->globalPos());
+		menu_.exec();
+		return true;
+	}
+
+	return QDialog::eventFilter(obj, e);
+}
+
+void OneKeyHide::AddHelp(const QString& title, const QString& gif_path) {
+	auto layout = new QVBoxLayout;
+	QLabel* title_label = new QLabel(title);
+	title_label->setAlignment(Qt::AlignCenter);
+	title_label->setFixedHeight(30);
+	title_label->setStyleSheet("color:red");
+	title_label->setFont(QFont("", 20, 30));
+
+	QMovie* gif = new QMovie(gif_path);
+	QLabel* gif_label = new QLabel;
+	gif_label->setAlignment(Qt::AlignCenter);
+	gif_label->setMovie(gif);
+	gif->start();
+
+	auto spacer_label = new QLabel;
+	spacer_label->setFixedHeight(10);
+	spacer_label->setStyleSheet("background-color: rgb(0, 200, 0);");
+
+	layout->addWidget(title_label);
+	layout->addWidget(gif_label);
+	layout->addWidget(spacer_label);
+	help_layout_->addLayout(layout);
 }
 
 void OneKeyHide::AddRow(QTableWidget* table, bool is_hide, const Rule& rule) {
@@ -98,7 +158,6 @@ void OneKeyHide::on_pushButtonNewHide_clicked() {
 	hider_->EnableEnum(true);
 	hider_->StartEnumWindows();
 	ui.stackedWidget->setCurrentWidget(ui.pageCreate);
-	new_dialog_->Exec();
 }
 
 void OneKeyHide::on_pushButtonSettings_clicked() {
@@ -135,6 +194,18 @@ void OneKeyHide::SlotVisibleActivated() {
 }
 
 void OneKeyHide::SlotOnekeyActivated() {
+	hider_->OneKeyAllHide();
+	SlotVisibleActivated();
+}
+
+void OneKeyHide::SlotDelete() {
+	int current = ui.tableWidgetHiding->currentRow();
+	if (current)
+		return;
+
+	HWND hwnd = (HWND)(WId)(ui.tableWidgetHiding->item(current, 0)->data(Qt::UserRole + 1).toInt());
+	hider_->SetUnsetted(hwnd);
+	ui.tableWidgetHiding->removeRow(current);
 }
 
 void OneKeyHide::OnEnumStart() {

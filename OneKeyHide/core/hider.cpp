@@ -32,11 +32,21 @@ Hider::~Hider() {
 
 void Hider::StartEnumWindows() {
 	delegate_->OnEnumStart();
+
+	WindowHash windows_info_tmp = windows_info_;
 	windows_info_.clear();
 	::EnumWindows((WNDENUMPROC)MyEnumWindowsProc, 0);
+	for (const auto& tmp_it : windows_info_tmp) {
+		auto it = windows_info_.find(tmp_it.hwnd);
+		if (it != windows_info_.end() && tmp_it.setted) {
+			it->setted = true;
+			it->shortcut = tmp_it.shortcut;
+		}
+	}
+
 	delegate_->OnEnumFinish(windows_info_);
 	if (enable_enum_window_)
-		QTimer::singleShot(1000, this, SLOT(StartEnumWindows()));
+		QTimer::singleShot(400, this, SLOT(StartEnumWindows()));
 }
 
 void Hider::SlotShortCutActivated() {
@@ -90,7 +100,7 @@ bool CALLBACK Hider::MyEnumWindowsProc(HWND hwnd, LPARAM lParam) {
 			GetModuleFileNameEx(handle, NULL, exe_file_path, sizeof(exe_file_path));
 			window.exe_path = QString::fromStdWString(exe_file_path);
 
-			//qDebug() << hwnd << window.title << window.exe_path;
+			qDebug() << hwnd << window.title << window.exe_path;
 			if (window.process_handle && window.process_id)
 				windows_info_.insert(hwnd, window);	
 		} else {
@@ -118,8 +128,16 @@ void Hider::AddRule(const QKeySequence& key_seq, const Rule& rule) {
 	delegate_->OnNewRuleAdd(rule);
 	for (auto& it : rule.visible_list) {
 		auto iter = windows_info_.find(it.hwnd);
-		if (iter != windows_info_.end())
+		if (iter != windows_info_.end()) {
 			iter->setted = true;
+			iter->shortcut = short_cut;
+		}
+	}
+}
+
+void Hider::OneKeyAllHide() {
+	for (auto it = actions_.begin(); it != actions_.end(); ++it) {
+		it.key()->activated();
 	}
 }
 
@@ -144,4 +162,12 @@ void Hider::SetVisible(HWND hwnd, bool visible) {
 	auto it = windows_info_.find(hwnd);
 	if (it != windows_info_.end())
 		it->visible = visible;
+}
+
+void Hider::SetUnsetted(HWND hwnd) {
+	auto it = windows_info_.find(hwnd);
+	if (it != windows_info_.end()) {
+		it->setted = false;
+		it->shortcut->setShortcut(QKeySequence());
+	}
 }
