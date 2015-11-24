@@ -5,7 +5,12 @@
 
 #define G2U(str) QString::fromLocal8Bit(str)
 
-#define MsgBoxA(parent, title, content) \
-	QMessageBox::information(parent, G2U(title), G2U(content));\
+#define MsgBox(parent, title, content) \
+	QMessageBox msgBox;\
+	msgBox.setTextFormat(Qt::TextFormat::RichText);\
+	msgBox.setText(G2U(content));\
+	msgBox.setWindowTitle(G2U(title));\
+	msgBox.setStandardButtons(QMessageBox::Ok);\
+	msgBox.exec();\
 
 #endif // ONEKEYHIDE_UTIL_H_

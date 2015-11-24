@@ -39,6 +39,8 @@ public slots:
 
 	void SlotDelete();
 private:
+	void Init();
+
 	void SetWidgetToWidget(QWidget* parent, QWidget* child);
 
 	bool nativeEvent(const QByteArray &eventType, void *message, long *result);

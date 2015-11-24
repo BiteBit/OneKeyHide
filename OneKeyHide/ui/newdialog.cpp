@@ -60,7 +60,7 @@ bool NewDialog::Add() {
 		hider_->AddRule(visible_key_seq_, rule);
 		return true;
 	} else {
-		MsgBoxA(this, "警告", "未选择窗口或者未设置显隐快捷键");
+		MsgBox(this, "警告", "未选择窗口或者未设置显隐快捷键");
 		return false;
 	}
 }
@@ -85,20 +85,20 @@ WindowList NewDialog::CheckedWindow(const QTableWidget* list) {
 }
 
 void NewDialog::on_pushButtonTest_clicked() {
-	auto checked_wins = CheckedWindow(ui.tableWidgetOption);
-	for (auto& it : checked_wins) {
-		ShowWindow(it.hwnd, it.visible ? SW_HIDE : SW_SHOW);
-		hider_->SetVisible(it.hwnd, !it.visible);
-	}
+	//auto checked_wins = CheckedWindow(ui.tableWidgetOption);
+	//for (auto& it : checked_wins) {
+	//	ShowWindow(it.hwnd, it.visible ? SW_HIDE : SW_SHOW);
+	//	hider_->SetVisible(it.hwnd, !it.visible);
+	//}
 
-	if (ui.checkBoxSwitchWhenHide->isChecked()) {
-		auto switch_checked_wins = CheckedWindow(ui.tableWidgetSwitching);
-		for (auto& it : switch_checked_wins) {
-			ShowWindow(it.hwnd, SW_SHOW);
-			hider_->SetVisible(it.hwnd, !it.visible);
-			BringWindowToTop(it.hwnd);
-		}
-	}
+	//if (ui.checkBoxSwitchWhenHide->isChecked()) {
+	//	auto switch_checked_wins = CheckedWindow(ui.tableWidgetSwitching);
+	//	for (auto& it : switch_checked_wins) {
+	//		ShowWindow(it.hwnd, SW_SHOW);
+	//		hider_->SetVisible(it.hwnd, !it.visible);
+	//		BringWindowToTop(it.hwnd);
+	//	}
+	//}
 }
 
 void NewDialog::SlotSwitchCheckChanged(int state) {

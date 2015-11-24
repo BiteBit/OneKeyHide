@@ -11,6 +11,7 @@
 
 #include "ui/settingswidget.h"
 #include "util/util.h"
+#include "core/registercontrol.h"
 
 const int kShadowWidth = 5;
 
@@ -35,14 +36,14 @@ OneKeyHide::OneKeyHide(QWidget *parent)
 	boss_link->setOpenExternalLinks(true);
 	help_layout_->addWidget(boss_link);
 	help_layout_->addSpacerItem(new QSpacerItem(20, 40));
-	AddHelp(G2U("1.新建隐藏窗口"), ":/OneKeyHide/Resources/help/new_hide.gif");
-	AddHelp(G2U("2.新建切换窗口"), ":/OneKeyHide/Resources/help/new_switch.gif");
-	AddHelp(G2U("3.一键隐藏【老板不在】"), ":/OneKeyHide/Resources/help/hide.gif");
-	AddHelp(G2U("4.修改一条窗口切换规则"), ":/OneKeyHide/Resources/help/modify.gif");
-	AddHelp(G2U("5.删除一条窗口切换规则"), ":/OneKeyHide/Resources/help/delete.gif");
-	AddHelp(G2U("6.检测升级更新"), ":/OneKeyHide/Resources/help/update.gif");
-	AddHelp(G2U("7.安装程序"), ":/OneKeyHide/Resources/help/install.gif");
-	AddHelp(G2U("8.卸载程序"), ":/OneKeyHide/Resources/help/uninstall.gif");
+	//AddHelp(G2U("1.新建隐藏窗口"), ":/OneKeyHide/Resources/help/new_hide.gif");
+	//AddHelp(G2U("2.新建切换窗口"), ":/OneKeyHide/Resources/help/new_switch.gif");
+	//AddHelp(G2U("3.一键隐藏【老板不在】"), ":/OneKeyHide/Resources/help/hide.gif");
+	//AddHelp(G2U("4.修改一条窗口切换规则"), ":/OneKeyHide/Resources/help/modify.gif");
+	//AddHelp(G2U("5.删除一条窗口切换规则"), ":/OneKeyHide/Resources/help/delete.gif");
+	//AddHelp(G2U("6.检测升级更新"), ":/OneKeyHide/Resources/help/update.gif");
+	//AddHelp(G2U("7.安装程序"), ":/OneKeyHide/Resources/help/install.gif");
+	//AddHelp(G2U("8.卸载程序"), ":/OneKeyHide/Resources/help/uninstall.gif");
 	help_layout_->addSpacerItem(new QSpacerItem(20, 20, QSizePolicy::Expanding, QSizePolicy::Expanding));
 	
 	auto delete_act = new QAction(G2U("删除"), &menu_);
@@ -55,6 +56,10 @@ OneKeyHide::OneKeyHide(QWidget *parent)
 }
 
 OneKeyHide::~OneKeyHide() {
+}
+
+void OneKeyHide::Init() {
+
 }
 
 void OneKeyHide::SetWidgetToWidget(QWidget* parent, QWidget* child) {
@@ -200,7 +205,7 @@ void OneKeyHide::SlotOnekeyActivated() {
 
 void OneKeyHide::SlotDelete() {
 	int current = ui.tableWidgetHiding->currentRow();
-	if (current)
+	if (current == -1)
 		return;
 
 	HWND hwnd = (HWND)(WId)(ui.tableWidgetHiding->item(current, 0)->data(Qt::UserRole + 1).toInt());

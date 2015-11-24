@@ -53,6 +53,9 @@
     <Filter Include="Source Files\3rd\volume">
       <UniqueIdentifier>{facdf97d-72a4-45c4-9718-db958f34c41e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\3rd\vprotect">
+      <UniqueIdentifier>{ec085262-b68b-47a7-b6e2-8a498bb11dd0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="base-ui\frameless_dialog.cpp">
@@ -124,6 +127,15 @@
     <ClCompile Include="ui\settingswidget.cpp">
       <Filter>Source Files\ui</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\Debug\moc_registercontrol.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="GeneratedFiles\Release\moc_registercontrol.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="core\registercontrol.cpp">
+      <Filter>Source Files\core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="base-ui\frameless_dialog.h">
@@ -168,6 +180,9 @@
     <CustomBuild Include="ui\settingswidget.h">
       <Filter>Source Files\ui</Filter>
     </CustomBuild>
+    <CustomBuild Include="core\registercontrol.h">
+      <Filter>Source Files\core</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\default_zh.qss">
@@ -201,6 +216,9 @@
     </ClInclude>
     <ClInclude Include="GeneratedFiles\ui_settingswidget.h">
       <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="3rd\vprotect\VP_License_Sdk.h">
+      <Filter>Source Files\3rd\vprotect</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

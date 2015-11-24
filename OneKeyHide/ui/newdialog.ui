@@ -158,32 +158,6 @@ background-color: rgb(255, 255, 255);
               </property>
              </spacer>
             </item>
-            <item>
-             <layout class="QHBoxLayout" name="horizontalLayout_8">
-              <property name="topMargin">
-               <number>0</number>
-              </property>
-              <item>
-               <widget class="QPushButton" name="pushButtonTest">
-                <property name="minimumSize">
-                 <size>
-                  <width>81</width>
-                  <height>33</height>
-                 </size>
-                </property>
-                <property name="maximumSize">
-                 <size>
-                  <width>81</width>
-                  <height>33</height>
-                 </size>
-                </property>
-                <property name="text">
-                 <string>测试一下</string>
-                </property>
-               </widget>
-              </item>
-             </layout>
-            </item>
            </layout>
           </widget>
          </item>
